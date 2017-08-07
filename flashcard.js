@@ -58,6 +58,8 @@ function createCard() {
         console.log(type);			  			
 
         if (type === "Basic Card") {
+            // This would be a good candidate for extracting out into its
+            // own module or function to help readability & maintainability
             inquirer.prompt([
                 {
                     type: "input",
@@ -83,6 +85,8 @@ function createCard() {
                 
                 fs.writeFile("cards.json", JSON.stringify(data, null, 2)); 
 
+                // Same with this prompt. You generally want your functions
+                // to be tightly focused. 
                 inquirer.prompt([					
                     {
                         type: "list",
@@ -152,6 +156,13 @@ function createCard() {
     });
 };
 
+// I would keep the two function below close to the `start` one
+// you have above since they realte more to the flow of the 
+// game like start does. The `createCard` function above serves
+// a bit of a different purpose. However, it looks like your 
+// code followed the order in which you constructed your program
+// so I get why it's organized the way it is.
+
 //Function to get the question
 function getQuestion(result) {
     if (result.type === "BasicCard") {						
@@ -186,6 +197,7 @@ function displayQuestion() {
                 }
             }
             count ++; 		
+            // nice use of recursion here
             displayQuestion(); 
         });
     } else {
